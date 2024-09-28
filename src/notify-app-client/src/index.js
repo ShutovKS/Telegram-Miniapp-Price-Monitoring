@@ -9,7 +9,6 @@ const initializeTelegramSDK = async () => {
         console.log("Инициализация окружения Telegram");
         const [miniApp] = initMiniApp();
         miniApp.setHeaderColor('#fcb69f');
-        await miniApp.ready();
 
         // Инициализация главной кнопки
         const [mainButton] = initMainButton();
@@ -21,7 +20,7 @@ const initializeTelegramSDK = async () => {
         });
         mainButton.show();
 
-        const utils = initUtils();
+        const [utils] = initUtils();
 
         // Установка обработчика нажатия на главную кнопку
         mainButton.on('click', () => {
@@ -34,6 +33,8 @@ const initializeTelegramSDK = async () => {
                 console.error('Ошибка при открытии окна выбора чата:', error);
             }
         });
+
+        await miniApp.ready();
     } catch (error) {
         // В случае ошибки инициализируем фейковое окружение
         console.error('Ошибка при инициализации Telegram:', error);
