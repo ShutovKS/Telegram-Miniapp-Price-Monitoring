@@ -2,6 +2,7 @@
   "scripts": {
     "start:client": "cd src/notify-app-client && npm install && npm start",
     "build:client": "cd src/notify-app-client && npm install && npm run build",
+    "start:client:prod": "cd src/notify-app-client && npm install && npm run build && serve -s build",
     "start:server": "cd src/notify-app-server && npm install && npm start",
     "build:server": "cd src/notify-app-server && npm install && npm run build",
     "start:price-watcher-service": "cd src/price-watcher-service && npm install && npm start",
