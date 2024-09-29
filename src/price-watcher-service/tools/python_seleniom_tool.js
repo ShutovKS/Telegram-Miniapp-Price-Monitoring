@@ -24,3 +24,6 @@ async function parse_webpage(url, selectors) {
         console.error(error);
     }
 }
+
+
+module.exports = parse_webpage;

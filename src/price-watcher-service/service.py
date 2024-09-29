@@ -14,7 +14,7 @@ chrome_options.add_argument("--headless")
 
 
 # Функция для парсинга страницы
-def scrape_website(url, selectors):
+def scrape_website(url, selector):
     try:
         # Инициализация веб-драйвера
         service = Service(ChromeDriverManager().install())
@@ -25,10 +25,10 @@ def scrape_website(url, selectors):
 
         # Ищем элементы по переданным селекторам
         results = []
-        for selector in selectors:
-            elements = driver.find_elements(By.CSS_SELECTOR, selector)
-            for element in elements:
-                results.append(element.text)
+
+        elements = driver.find_elements(By.CLASS_NAME, selector)
+        for element in elements:
+            results.append(element.text)
 
         driver.quit()
 
