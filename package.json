@@ -12,7 +12,7 @@
     "price-watcher-service:build": "cd src/price-watcher-service && npm install && npm run build",
     "price-watcher-service:start-build": "cd src/price-watcher-service && npm install && npm run build && node build/index.js",
 
-    "database:start": "cd src/database && docker-compose up -d",
+    "database:start": "cd src/database && database_up.sh",
     "database:stop": "cd src/database && docker-compose down"
   }
 }
