@@ -1,21 +1,4 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
-
-async function parse_webpage(url, selectors) {
-    try {
-        const response = await axios.get(url);
-        const $ = cheerio.load(response.data);
-
-        let result = {};
-        selectors.forEach(selector => {
-            result[selector.name] = $(selector.selector).text();
-        });
-
-        return result;
-    } catch (error) {
-        console.error(error);
-    }
-}
+const parse_webpage = require("../tools/axios_and_cheerio_tool");
 
 async function parse_price_perekrestok(url) {
     let result = await parse_webpage(url, [
