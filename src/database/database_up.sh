@@ -7,13 +7,22 @@ if [ ! -f .env ]; then
 fi
 
 # Поднимаем контейнер PostgreSQL
+echo ""
+echo "##############################"
 echo "Запуск контейнера PostgreSQL..."
+echo ""
 docker-compose up -d
 
 # Устанавливаем зависимости
+echo ""
+echo "##############################"
 echo "Установка зависимостей..."
-pip install -r requirements.txt
+echo ""
+npm install
 
-# Запускаем Python-скрипт для инициализации базы данных
-echo "Запуск скрипта инициализации базы данных..."
-python init_db.py
+# Запускаем Node.js-скрипт для инициализации базы данных
+echo ""
+echo "##############################"
+echo "Инициализация базы данных..."
+echo ""
+node init_db.js
