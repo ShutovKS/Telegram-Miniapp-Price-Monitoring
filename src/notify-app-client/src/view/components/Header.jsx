@@ -1,11 +1,11 @@
 import React from 'react';
-import useTelegram from "../../hooks/useTelegram";
+import useTelegram from "../../utils/useTelegram";
 import {Button, Col, Container, Navbar, Row, Image} from "react-bootstrap";
 import {FaTimes} from 'react-icons/fa';
-import {appName} from "../../config/constants";
+import {appName} from "../../utils/constants";
 
 const Header = () => {
-    const {close, user} = useTelegram();
+    const {close} = useTelegram();
 
     return (
         <Navbar expand="lg" bg="dark" className="py-3"><Container>
