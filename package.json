@@ -1,12 +1,11 @@
 {
   "scripts": {
-    "client:start": "cd src/notify-app-client && npm install && npm start",
+    "client:start": "cd src/notify-app-client && npm install && npm run start",
     "client:build": "cd src/notify-app-client && npm install && npm run build",
     "client:start-build": "cd src/notify-app-client && npm install && npm run build && serve -s build",
 
-    "server:start": "cd src/notify-app-server && npm install && npm start",
-    "server:build": "cd src/notify-app-server && npm install && npm run build",
-    "server:start-build": "cd src/notify-app-server && npm install && npm run build && node build/index.js",
+    "server:start-dev": "cd src/notify-app-server && npm install && npm run dev",
+    "server:start": "cd src/notify-app-server && npm install && node run start",
 
     "price-watcher-service:start": "cd src/price-watcher-service && service_up.sh",
     "price-watcher-service:stop": "cd src/price-watcher-service && service_down.sh",
