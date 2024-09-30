@@ -1,4 +1,4 @@
-import { url } from './constants.js';
+import { url } from '../../config/constants.js';
 
 // Обработчик команды /start
 export const handleStartCommand = async (bot, chatId) => {

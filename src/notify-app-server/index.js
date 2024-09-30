@@ -1,7 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import dotenv from 'dotenv';
-import {handleStartCommand} from './commands.js';
-import {COMMANDS} from './constants.js';
+import {handleStartCommand} from './kernel/commands/commands.js';
+import {COMMANDS} from './config/constants.js';
 
 dotenv.config();
 
