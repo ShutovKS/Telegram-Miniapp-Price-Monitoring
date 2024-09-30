@@ -1,26 +1,26 @@
-import './App.css';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import useTelegram from "./hooks/useTelegram";
-import Header from "./components/Header";
-import MainLayout from "./components/MainLayout";
+import Header from "./view/components/Header";
+import MainLayout from "./view/components/MainLayout";
+import FullscreenLoader from "./view/components/FullscreenLoader";
 
 
 function App() {
-    const {tg, toggleButton} = useTelegram();
+    const {tg} = useTelegram();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         tg.ready();
+        setLoading(false);
     }, []);
 
-    return (
-        <div className="App">
-            <header className="App-header">
+    return (loading
+            ? <FullscreenLoader/>
+            : <div>
                 <Header/>
                 <MainLayout>
-                    <button onClick={toggleButton}>Send Message</button>
                 </MainLayout>
-            </header>
-        </div>
+            </div>
     );
 }
 
