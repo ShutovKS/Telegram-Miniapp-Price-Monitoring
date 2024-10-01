@@ -1,16 +1,16 @@
 {
   "scripts": {
-    "client:start": "cd src/notify-app-client && npm install && npm run start",
-    "client:build": "cd src/notify-app-client && npm install && npm run build",
-    "client:start-build": "cd src/notify-app-client && npm install && npm run build && serve -s build",
-
-    "server:start-dev": "cd src/notify-app-server && npm install && npm run dev",
-    "server:start": "cd src/notify-app-server && npm install && node run start",
+    "database:start": "cd src/database && database_up.sh",
+    "database:stop": "cd src/database && docker-compose down",
 
     "price-watcher-service:start": "cd src/price-watcher-service && service_up.sh",
     "price-watcher-service:stop": "cd src/price-watcher-service && service_down.sh",
 
-    "database:start": "cd src/database && database_up.sh",
-    "database:stop": "cd src/database && docker-compose down"
+    "server:start-dev": "cd src/notify-app-server && npm install && npm run dev",
+    "server:start": "cd src/notify-app-server && npm install && node run start",
+
+    "client:start": "cd src/notify-app-client && npm install && npm run start",
+    "client:build": "cd src/notify-app-client && npm install && npm run build",
+    "client:start-build": "cd src/notify-app-client && npm install && npm run build && serve -s build"
   }
 }
