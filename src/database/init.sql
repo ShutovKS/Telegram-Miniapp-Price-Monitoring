@@ -3,6 +3,7 @@ CREATE TABLE users
 (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     telegram_id VARCHAR(255) UNIQUE NOT NULL,
+    chat_id     VARCHAR(255),
     username    VARCHAR(255),
     created_at  TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP        DEFAULT CURRENT_TIMESTAMP

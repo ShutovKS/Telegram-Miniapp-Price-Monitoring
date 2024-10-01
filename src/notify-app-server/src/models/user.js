@@ -1,5 +1,5 @@
 import {DataTypes, UUIDV4} from "sequelize";
-import sequelize from "../../kernel/services/db/database.js";
+import {sequelize} from "../../kernel/services/db/database.js";
 
 const User = sequelize.define('User', {
     id: {
@@ -10,6 +10,10 @@ const User = sequelize.define('User', {
     telegram_id: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
+    },
+    chat_id: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     username: {
@@ -28,4 +32,4 @@ const User = sequelize.define('User', {
     tableName: 'users',
 });
 
-module.exports = User;
+export default User;
