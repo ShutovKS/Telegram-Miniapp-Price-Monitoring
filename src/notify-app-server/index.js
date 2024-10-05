@@ -5,52 +5,57 @@ import {COMMANDS} from './config/constants.js';
 import {connectDB} from './kernel/services/db/database.js';
 import {registerUser} from './kernel/services/db/user.js';
 import User from "./src/models/user.js";
+import express from "express";
+import cors from "cors";
+import router from "./config/routes/index.js";
 
 dotenv.config();
+
+const PORT = process.env.PORT || 5000;
+const URL = process.env.URL;
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use('/api', router);
+
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
-connectDB().then();
+try {
+    await connectDB();
 
-// {
-//     message_id: ID_СООБЩЕНИЯ,
-//         from: {
-//     id: ID_ПОЛЬЗОВАТЕЛЯ,
-//         is_bot: false,
-//         first_name: ИМЯ_ПОЛЬЗОВАТЕЛЯ,
-//         username: НИК_ПОЛЬЗОВАТЕЛЯ,
-//         language_code: 'ru'
-// },
-//     chat: {
-//         id: ID_ЧАТА,
-//             first_name: ИМЯ_ПОЛЬЗОВАТЕЛЯ,
-//             username: НИК_ПОЛЬЗОВАТЕЛЯ,
-//             type: 'private'
-//     },
-//     date: 1686255759,
-//         text: ТЕКСТ_СООБЩЕНИЯ,
-// }
+    bot.on('message', async (msg) => {
+        const chatId = msg.chat.id;
+        const message = msg.text;
 
-bot.on('message', async (msg) => {
-    const chatId = msg.chat.id;
-    const message = msg.text;
+        const userId = msg.from.id;
+        const username = msg.from.username;
 
-    const userId = msg.from.id;
-    const username = msg.from.username;
+        switch (message) {
+            case COMMANDS.START:
 
-    switch (message) {
-        case COMMANDS.START:
+                const user = await User.findOne({telegram_id: userId});
+                if (!user) {
+                    registerUser(userId, username, chatId);
+                }
 
-            const user = await User.findOne({telegram_id: userId});
-            if (!user) {
-                registerUser(userId, username, chatId);
-            }
+                await handleStartCommand(bot, chatId);
+                break;
+            default:
+                await bot.sendMessage(chatId, 'Команда не распознана.');
+                break;
+        }
+    });
 
-            await handleStartCommand(bot, chatId);
-            break;
-        default:
-            await bot.sendMessage(chatId, 'Команда не распознана.');
-            break;
-    }
-});
+    app.listen(PORT, (err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(`Server is running on port ${PORT}`);
+        }
+    });
 
+} catch (e) {
+    console.error(e);
+}
