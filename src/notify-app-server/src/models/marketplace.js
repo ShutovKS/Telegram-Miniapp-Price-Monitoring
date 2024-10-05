@@ -29,4 +29,4 @@ const Marketplace = sequelize.define('Marketplace', {
     tableName: 'marketplaces',
 });
 
-module.exports = Marketplace;
+export default Marketplace;

@@ -1,4 +1,4 @@
-import Product from "./Product";
+import Product from "./product.js";
 import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
@@ -29,4 +29,4 @@ const PriceHistory = sequelize.define('PriceHistory', {
     tableName: 'price_history',
 });
 
-module.exports = PriceHistory;
+export default PriceHistory;

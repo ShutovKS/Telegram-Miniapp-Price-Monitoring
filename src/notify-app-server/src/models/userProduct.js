@@ -1,5 +1,5 @@
-import Product from "./Product";
-import User from "./User";
+import Product from "./product.js";
+import User from "./user.js";
 import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
@@ -38,4 +38,4 @@ const UserProduct = sequelize.define('UserProduct', {
     tableName: 'user_products',
 });
 
-module.exports = UserProduct;
+export default UserProduct;

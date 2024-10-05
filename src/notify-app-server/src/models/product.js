@@ -1,6 +1,6 @@
 import {DataTypes, UUIDV4} from "sequelize";
 import {sequelize} from "../../kernel/services/db/database.js";
-import Marketplace from "./Marketplace";
+import Marketplace from "./marketplace.js";
 
 const Product = sequelize.define('Product', {
     id: {
@@ -50,4 +50,4 @@ const Product = sequelize.define('Product', {
     tableName: 'products',
 });
 
-module.exports = Product;
+export default Product;
