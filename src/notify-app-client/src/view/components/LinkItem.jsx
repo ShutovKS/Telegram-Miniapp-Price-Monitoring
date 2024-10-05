@@ -1,8 +1,12 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+import {ListGroup, Button} from 'react-bootstrap';
 
-const LinkItem = ({ productModel }) => {
-    const { productName, productUrl, currentPrice } = productModel;
+const LinkItem = ({productModel, onDelete}) => {
+    const {productName, productUrl, currentPrice} = productModel;
+
+    const handleDelete = () => {
+        onDelete(productModel.id);  // Вызываем переданную функцию удаления
+    };
 
     return (
         <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
@@ -13,6 +17,7 @@ const LinkItem = ({ productModel }) => {
                 </a>
                 <div>{`Price: $${currentPrice}`}</div>
             </div>
+            <Button variant="danger" onClick={handleDelete}>Удалить</Button>
         </ListGroup.Item>
     );
 };

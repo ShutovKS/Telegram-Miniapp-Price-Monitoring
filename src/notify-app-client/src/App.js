@@ -42,15 +42,28 @@ function App() {
         return <FullscreenLoader/>;
     }
 
-    if (!productsModel.length) {
-        return <div>No products available</div>;
-    }
+    const handleCreateProduct = (newProduct) => {
+        const newProductWithId = {
+            ...newProduct,
+            id: productsModel.length + 1, // Генерация нового ID
+            currentPrice: 0, // Начальная цена
+        };
+        setProductsModel([...productsModel, newProductWithId]);
+    };
+
+    const handleDeleteProduct = (productId) => {
+        setProductsModel(productsModel.filter((product) => product.id !== productId));
+    };
 
     return (
         <div>
             <Header/>
             <MainLayout>
-                <ListLinksContainer productsModel={productsModel}/>
+                <ListLinksContainer
+                    productsModel={productsModel}
+                    onCreate={handleCreateProduct}
+                    onDelete={handleDeleteProduct}
+                />
             </MainLayout>
         </div>
     );
