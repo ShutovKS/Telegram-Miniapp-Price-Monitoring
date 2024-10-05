@@ -1,6 +1,6 @@
 import Product from "./Product";
 import User from "./User";
-import sequelize from "../../kernel/services/db/database.js";
+import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
 const Notification = sequelize.define('Notification', {

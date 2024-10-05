@@ -1,5 +1,5 @@
 import Product from "./Product";
-import sequelize from "../../kernel/services/db/database.js";
+import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
 const PriceHistory = sequelize.define('PriceHistory', {

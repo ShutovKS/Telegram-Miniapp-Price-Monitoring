@@ -1,4 +1,4 @@
-import sequelize from "../../kernel/services/db/database.js";
+import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
 const Marketplace = sequelize.define('Marketplace', {
