@@ -7,35 +7,35 @@ const Notification = sequelize.define('Notification', {
     id: {
         type: DataTypes.UUID,
         defaultValue: UUIDV4,
-        primaryKey: true,
+        primaryKey: true
     },
     user_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING(255),
         references: {
             model: User,
-            key: 'id',
+            key: 'user_id'
         },
-        onDelete: 'CASCADE',
+        allowNull: false
     },
     product_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.TEXT,
         references: {
             model: Product,
-            key: 'id',
+            key: 'product_url'
         },
-        onDelete: 'CASCADE',
+        allowNull: false
     },
     notification_type: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: false
     },
     created_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+        defaultValue: DataTypes.NOW
+    }
 }, {
-    timestamps: false,
     tableName: 'notifications',
+    timestamps: false
 });
 
 export default Notification;

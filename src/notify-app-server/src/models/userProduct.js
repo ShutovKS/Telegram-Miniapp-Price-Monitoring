@@ -4,38 +4,35 @@ import {sequelize} from "../../kernel/services/db/database.js";
 import {DataTypes, UUIDV4} from "sequelize";
 
 const UserProduct = sequelize.define('UserProduct', {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: UUIDV4,
-        primaryKey: true,
-    },
     user_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING(255),
         references: {
             model: User,
-            key: 'id',
+            key: 'user_id'
         },
-        onDelete: 'CASCADE',
+        primaryKey: true,
+        allowNull: false
     },
     product_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.TEXT,
         references: {
             model: Product,
-            key: 'id',
+            key: 'product_url'
         },
-        onDelete: 'CASCADE',
+        primaryKey: true,
+        allowNull: false
     },
     is_notified: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: false
     },
     created_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+        defaultValue: DataTypes.NOW
+    }
 }, {
-    timestamps: false,
     tableName: 'user_products',
+    timestamps: false
 });
 
 export default UserProduct;

@@ -3,51 +3,42 @@ import {sequelize} from "../../kernel/services/db/database.js";
 import Marketplace from "./marketplace.js";
 
 const Product = sequelize.define('Product', {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: UUIDV4,
-        primaryKey: true,
-    },
-    marketplace_id: {
-        type: DataTypes.UUID,
-        references: {
-            model: Marketplace,
-            key: 'id',
-        },
-        onDelete: 'CASCADE',
-    },
-    product_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     product_url: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        primaryKey: true,
+        allowNull: false
+    },
+    marketplace_id: {
+        type: DataTypes.STRING(255),
+        references: {
+            model: Marketplace,
+            key: 'base_url'
+        },
+        allowNull: false
+    },
+    product_name: {
+        type: DataTypes.STRING(255),
+        allowNull: false
     },
     current_price: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
+        allowNull: false
     },
     last_price: {
         type: DataTypes.DECIMAL(10, 2),
-    },
-    min_price: {
-        type: DataTypes.DECIMAL(10, 2),
-    },
-    max_price: {
-        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
     },
     created_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        defaultValue: DataTypes.NOW
     },
     updated_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
+        defaultValue: DataTypes.NOW
+    }
 }, {
-    timestamps: false,
     tableName: 'products',
+    timestamps: false
 });
 
 export default Product;
