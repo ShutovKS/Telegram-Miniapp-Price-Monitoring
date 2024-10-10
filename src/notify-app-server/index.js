@@ -12,7 +12,6 @@ import router from "./config/routes/index.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
-const URL = process.env.URL;
 
 const app = express();
 app.use(cors());
@@ -24,38 +23,37 @@ const bot = new TelegramBot(token, {polling: true});
 
 try {
     await connectDB();
-
-    bot.on('message', async (msg) => {
-        const chatId = msg.chat.id;
-        const message = msg.text;
-
-        const userId = msg.from.id;
-        const username = msg.from.username;
-
-        switch (message) {
-            case COMMANDS.START:
-
-                const user = await User.findOne({telegram_id: userId});
-                if (!user) {
-                    registerUser(userId, username, chatId);
-                }
-
-                await handleStartCommand(bot, chatId);
-                break;
-            default:
-                await bot.sendMessage(chatId, 'Команда не распознана.');
-                break;
-        }
-    });
-
-    app.listen(PORT, (err) => {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log(`Server is running on port ${PORT}`);
-        }
-    });
-
 } catch (e) {
-    console.error(e);
+    console.error('Error connecting to the database:', e);
 }
+
+app.listen(PORT, (err) => {
+    if (err) {
+        console.error('Error starting server:', err);
+    } else {
+        console.log(`Server is running on port ${PORT}`);
+    }
+});
+
+bot.on('message', async (msg) => {
+    const chatId = msg.chat.id;
+    const message = msg.text;
+
+    const userId = msg.from.id;
+    const username = msg.from.username;
+
+    switch (message) {
+        case COMMANDS.START:
+
+            const user = await User.findOne({where: {user_id: userId}});
+            if (!user) {
+                await registerUser(userId, username, chatId);
+            }
+
+            await handleStartCommand(bot, chatId);
+            break;
+        default:
+            await bot.sendMessage(chatId, 'Команда не распознана.');
+            break;
+    }
+});
