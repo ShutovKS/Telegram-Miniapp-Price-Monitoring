@@ -4,38 +4,27 @@ import Header from "./view/components/Header";
 import MainLayout from "./view/components/MainLayout";
 import FullscreenLoader from "./view/components/FullscreenLoader";
 import ListLinksContainer from "./view/components/ListLinksContainer";
-import ProductModel from "./data/models/productModel"; // Исправлено название файла
+import {productApi} from "./http/index.js";
 
 function App() {
-    const {tg} = useTelegram();
+    const {tg, userId} = useTelegram();
     const [productsModel, setProductsModel] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/products');
-                const data = await response.json();
-
-                const parsedData = data.map(product => new ProductModel(product));
-                setProductsModel(parsedData);
+                const productsData = await productApi.getProducts(userId);
+                setProductsModel(productsData);
             } catch (error) {
-                console.error('Error fetching products:', error);
-                setProductsModel([
-                    new ProductModel({
-                        id: 1,
-                        productName: 'Product 1',
-                        productUrl: 'https://example.com/product1',
-                        currentPrice: 100,
-                    })
-                ]);
+                console.error('Error while fetching user data:', error);
             } finally {
                 tg.ready();
                 setLoading(false);
             }
         };
 
-        fetchData();
+        fetchData().then();
     }, [tg]);
 
     if (loading) {
@@ -43,16 +32,19 @@ function App() {
     }
 
     const handleCreateProduct = (newProduct) => {
-        const newProductWithId = {
-            ...newProduct,
-            id: productsModel.length + 1, // Генерация нового ID
-            currentPrice: 0, // Начальная цена
-        };
-        setProductsModel([...productsModel, newProductWithId]);
+        productApi.createProduct(userId, newProduct).then((product) => {
+            if (product) {
+                setProductsModel([...productsModel, product]);
+            }
+        });
     };
 
-    const handleDeleteProduct = (productId) => {
-        setProductsModel(productsModel.filter((product) => product.id !== productId));
+    const handleDeleteProduct = (productUrl) => {
+        productApi.deleteProduct(userId, productUrl).then((success) => {
+            if (success) {
+                setProductsModel(productsModel.filter((product) => product.productUrl !== productUrl));
+            }
+        });
     };
 
     return (

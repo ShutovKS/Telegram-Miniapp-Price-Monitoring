@@ -5,7 +5,7 @@ const LinkItem = ({productModel, onDelete}) => {
     const {productName, productUrl, currentPrice} = productModel;
 
     const handleDelete = () => {
-        onDelete(productModel.id);  // Вызываем переданную функцию удаления
+        onDelete(productModel.productUrl);
     };
 
     return (

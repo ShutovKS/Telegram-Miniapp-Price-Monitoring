@@ -25,7 +25,7 @@ const ListLinksContainer = ({productsModel, onCreate, onDelete}) => {
             ) : (
                 <ListGroup>
                     {productsModel.map((productModel) => (
-                        <LinkItem key={productModel.id} productModel={productModel} onDelete={onDelete}/>
+                        <LinkItem key={productModel.productUrl} productModel={productModel} onDelete={onDelete}/>
                     ))}
                 </ListGroup>
             )}

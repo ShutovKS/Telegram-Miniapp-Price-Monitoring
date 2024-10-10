@@ -4,6 +4,7 @@ export function useTelegram() {
     const onClose = () => {
         tg.close();
     }
+
     const onToggleButton = () => {
         if (tg.MainButton.isVisible) {
             tg.MainButton.hide();
@@ -12,11 +13,15 @@ export function useTelegram() {
         }
     }
 
+    const user = tg.initDataUnsafe?.user;
+    const userId = user?.id || process.env.REACT_APP_TELEGRAM_USER_ID;
+
     return {
         close: onClose,
         toggleButton: onToggleButton,
-        tg,
-        user: tg.initDataUnsafe?.user
+        tg : tg || {},
+        user: user || {},
+        userId: userId || 0
     }
 }
 

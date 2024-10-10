@@ -22,7 +22,6 @@ CREATE TABLE products
 (
     product_url    TEXT PRIMARY KEY,
     marketplace_id VARCHAR(255) REFERENCES marketplaces (base_url) ON DELETE CASCADE,
-    product_name   VARCHAR(255)   NOT NULL,
     current_price  DECIMAL(10, 2) NOT NULL,
     last_price     DECIMAL(10, 2),
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -32,10 +31,11 @@ CREATE TABLE products
 -- Создание таблицы отслеживаемых товаров пользователей
 CREATE TABLE user_products
 (
-    user_id     VARCHAR(255) REFERENCES users (user_id) ON DELETE CASCADE,
-    product_id  TEXT REFERENCES products (product_url) ON DELETE CASCADE,
-    is_notified BOOLEAN   DEFAULT FALSE,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id      VARCHAR(255) REFERENCES users (user_id) ON DELETE CASCADE,
+    product_id   TEXT REFERENCES products (product_url) ON DELETE CASCADE,
+    product_name VARCHAR(255) NOT NULL,
+    is_notified  BOOLEAN   DEFAULT FALSE,
+    created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, product_id)
 );
 
@@ -43,8 +43,8 @@ CREATE TABLE user_products
 CREATE TABLE price_history
 (
     product_id TEXT REFERENCES products (product_url) ON DELETE CASCADE,
-    price      DECIMAL(10, 2) NOT NULL,
-    price_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    price      DECIMAL(10, 2) NOT NULL DEFAULT -1,
+    price_date TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (product_id, price_date)
 );
 
