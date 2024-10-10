@@ -22,6 +22,10 @@ const UserProduct = sequelize.define('UserProduct', {
         primaryKey: true,
         allowNull: false
     },
+    product_name: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
     is_notified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
