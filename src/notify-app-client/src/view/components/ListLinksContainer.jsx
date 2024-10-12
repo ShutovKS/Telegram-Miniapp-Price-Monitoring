@@ -3,11 +3,11 @@ import {ListGroup, Button, Col, Row, Container} from 'react-bootstrap';
 import LinkItem from './LinkItem';
 import CreateProductModal from './CreateProductModal';
 
-const ListLinksContainer = ({productsModel, onCreate, onDelete}) => {
-    const [showModal, setShowModal] = useState(false);
+const ListLinksContainer = ({productsModel, onCreate, onDelete, onUpdate}) => {
+    const [showModalCreated, setShowModalCreated] = useState(false);
 
-    const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
+    const handleShowCreate = () => setShowModalCreated(true);
+    const handleCloseCreate = () => setShowModalCreated(false);
 
     return (
         <div>
@@ -17,7 +17,7 @@ const ListLinksContainer = ({productsModel, onCreate, onDelete}) => {
             {productsModel.length === 0 ? (
                 <Container>
                     <Row>
-                        <Col className={'text-center'} >
+                        <Col className={'text-center'}>
                             <h3>Список товаров пуст</h3>
                         </Col>
                     </Row>
@@ -25,17 +25,20 @@ const ListLinksContainer = ({productsModel, onCreate, onDelete}) => {
             ) : (
                 <ListGroup>
                     {productsModel.map((productModel) => (
-                        <LinkItem key={productModel.productUrl} productModel={productModel} onDelete={onDelete}/>
+                        <LinkItem key={productModel.productUrl}
+                                  productModel={productModel}
+                                  onUpdate={onUpdate}
+                                  onDelete={onDelete}/>
                     ))}
                 </ListGroup>
             )}
 
             {/* Вызов модального окна */}
-            <CreateProductModal show={showModal} handleClose={handleClose} onCreate={onCreate}/>
+            <CreateProductModal show={showModalCreated} handleClose={handleCloseCreate} onCreate={onCreate}/>
 
             <Container className={'text-center'}>
                 <br/>
-                <Button variant="primary" size="lg" onClick={handleShow}>Добавить товар</Button>
+                <Button variant="primary" size="lg" onClick={handleShowCreate}>Добавить товар</Button>
             </Container>
         </div>
     );

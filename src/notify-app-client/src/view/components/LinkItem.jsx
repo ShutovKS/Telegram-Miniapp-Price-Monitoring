@@ -1,8 +1,13 @@
-import React from 'react';
-import {ListGroup, Button} from 'react-bootstrap';
+import React, {useState} from 'react';
+import {ListGroup, Button, ButtonGroup} from 'react-bootstrap';
+import UpdateProductModal from "./UpdateProductModal";
 
-const LinkItem = ({productModel, onDelete}) => {
+const LinkItem = ({productModel, onDelete, onUpdate}) => {
     const {productName, productUrl, currentPrice} = productModel;
+
+    const [showModalUpdated, setShowModalUpdated] = useState(false);
+    const handleShowUpdate = () => setShowModalUpdated(true);
+    const handleCloseUpdate = () => setShowModalUpdated(false);
 
     const handleDelete = () => {
         onDelete(productModel.productUrl);
@@ -17,7 +22,16 @@ const LinkItem = ({productModel, onDelete}) => {
                 </a>
                 <div>{`Price: $${currentPrice}`}</div>
             </div>
-            <Button variant="danger" onClick={handleDelete}>Удалить</Button>
+            <ButtonGroup>
+                <Button variant="primary" onClick={handleShowUpdate}>Update</Button>
+                <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            </ButtonGroup>
+
+            <UpdateProductModal show={showModalUpdated}
+                                handleClose={handleCloseUpdate}
+                                productModel={productModel}
+                                onUpdate={onUpdate}/>
+
         </ListGroup.Item>
     );
 };

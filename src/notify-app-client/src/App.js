@@ -47,6 +47,14 @@ function App() {
         });
     };
 
+    const handleUpdateProduct = (updateProduct) => {
+        productApi.updateProduct(userId, updateProduct).then((product) => {
+            if (product) {
+                setProductsModel(productsModel.map((item) => item.productUrl === product.productUrl ? product : item));
+            }
+        });
+    }
+
     return (
         <div>
             <Header/>
@@ -55,6 +63,7 @@ function App() {
                     productsModel={productsModel}
                     onCreate={handleCreateProduct}
                     onDelete={handleDeleteProduct}
+                    onUpdate={handleUpdateProduct}
                 />
             </MainLayout>
         </div>

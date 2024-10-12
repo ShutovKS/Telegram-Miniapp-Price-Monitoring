@@ -6,8 +6,8 @@ import handleValidationErrors from "../../src/middleware/handleValidationErrors.
 const router = express.Router();
 
 router.get('/:userId', ProductController.get);
-router.post('/:userId', createProductValidation, handleValidationErrors, ProductController.create);
-router.put('/:userId/:productUrl', updateProductValidation, handleValidationErrors, ProductController.update);
-router.delete('/:userId/:productUrl', ProductController.delete);
+router.post('/', createProductValidation, handleValidationErrors, ProductController.create);
+router.put('/', updateProductValidation, handleValidationErrors, ProductController.update);
+router.delete('/', ProductController.delete);
 
 export default router;

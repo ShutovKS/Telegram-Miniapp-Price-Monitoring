@@ -11,9 +11,15 @@ export const getProducts = async (userId) => {
     }
 }
 
-export const createProduct = async (userId, product) => {
+export const createProduct = async (userId, newProduct) => {
     try {
-        const response = await host.post(`api/product/${userId}`, product);
+        const data = {
+            ...newProduct,
+            userId
+        };
+
+        const response = await host.post(`api/product/`, data);
+        console.log('response', response);
         return new ProductModel(response.data);
     } catch (error) {
         console.error('Ошибка при создании товара:', error);
@@ -23,7 +29,7 @@ export const createProduct = async (userId, product) => {
 
 export const deleteProduct = async (userId, productUrl) => {
     try {
-        await host.delete(`api/product/${userId}/${productUrl}`);
+        await host.delete(`api/product/`, {data: {userId, productUrl}});
         return true;
     } catch (error) {
         console.error('Ошибка при удалении товара:', error);
@@ -31,9 +37,9 @@ export const deleteProduct = async (userId, productUrl) => {
     }
 }
 
-export const updateProduct = async (userId, product) => {
+export const updateProduct = async (userId, updateProduct) => {
     try {
-        const response = await host.put(`api/product/${userId}/${product.productUrl}`, product);
+        const response = await host.put(`api/product/`, {...updateProduct, userId});
         return new ProductModel(response.data);
     } catch (error) {
         console.error('Ошибка при обновлении товара:', error);
