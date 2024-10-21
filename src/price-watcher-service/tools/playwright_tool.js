@@ -1,4 +1,4 @@
-const {chromium} = require('playwright');
+import {chromium} from "playwright";
 
 async function parse_webpage(url, selector) {
     try {
@@ -18,4 +18,4 @@ async function parse_webpage(url, selector) {
     }
 }
 
-module.exports = parse_webpage;
+export default parse_webpage;

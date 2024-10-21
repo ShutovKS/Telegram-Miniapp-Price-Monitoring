@@ -1,4 +1,4 @@
-const parse_webpage = require("../tools/axios_and_cheerio_tool");
+import parse_webpage from "../tools/axios_and_cheerio_tool.js";
 
 async function parse_price_perekrestok(url) {
     let result = await parse_webpage(url, [
@@ -10,4 +10,4 @@ async function parse_price_perekrestok(url) {
     return result;
 }
 
-module.exports = parse_price_perekrestok;
+export default parse_price_perekrestok;

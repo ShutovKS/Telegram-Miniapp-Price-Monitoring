@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+import puppeteer from "puppeteer";
 
 async function parse_webpage(url, selector) {
     try {
@@ -22,4 +22,4 @@ async function parse_webpage(url, selector) {
     }
 }
 
-module.exports = parse_webpage;
+export default parse_webpage;

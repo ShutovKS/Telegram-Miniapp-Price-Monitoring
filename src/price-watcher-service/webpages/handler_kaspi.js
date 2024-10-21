@@ -1,4 +1,4 @@
-const parse_webpage = require('../tools/playwright_tool');
+import parse_webpage from "../tools/playwright_tool.js";
 
 async function parse_price_kaspi(url) {
     let result = await parse_webpage(url, '.item__price-once');
@@ -8,4 +8,4 @@ async function parse_price_kaspi(url) {
     return result;
 }
 
-module.exports = parse_price_kaspi;
+export default parse_price_kaspi;

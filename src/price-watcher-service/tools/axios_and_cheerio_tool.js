@@ -1,5 +1,5 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
+import axios from "axios";
+import cheerio from "cheerio";
 
 async function parse_webpage(url, selectors) {
     try {
@@ -17,4 +17,4 @@ async function parse_webpage(url, selectors) {
     }
 }
 
-module.exports = parse_webpage;
+export default parse_webpage;
