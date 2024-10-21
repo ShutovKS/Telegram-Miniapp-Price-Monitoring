@@ -2,7 +2,9 @@
   "name": "price-watcher-service",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -11,6 +13,8 @@
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
     "playwright": "^1.47.2",
-    "puppeteer": "^23.4.1"
+    "puppeteer": "^23.4.1",
+    "python-shell": "^5.0.0",
+    "selenium-webdriver": "^4.25.0"
   }
 }
